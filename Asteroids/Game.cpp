@@ -114,7 +114,6 @@ bool Game::isShipCollided()
 
 	for (int i = 1; i < spaceObjects.size(); i++)
 	{
-
 		for (auto v : sVertices)
 		{
 			sf::Vector2f dVec = v - spaceObjects[i]->getPos();;
@@ -150,14 +149,19 @@ void Game::restartGame()
 {
 	spaceObjects.clear();
 	addShip();
-
 	nextRound();
 }
 
 void Game::bulletCol()
 {
+	// Most basic collission checking method that checks the distance from the bullet to the centre of an ast.
+
 	bool deleted = false;
 	
+	// Hovewer THIS IS BEYOND ME. I have no fucking idea how to make this not
+	// fall out of range without including these retarded if statements.
+	// The boolean also needs to be there. Otherwise I see no different
+	// way to solve this other than using goto statements.
 	do 
 	{
 		deleted = false;
@@ -183,10 +187,15 @@ void Game::bulletCol()
 				break;
 		}
 	} while (deleted);
+
+	// ---!!! TO DO !!!---
+	// Fix this bullshit implementation!
 }
 
 void Game::destAst(int it)
 {
+	// This one simply finds the desired SpaceObj in the std::vector and then deletes it.
+	// In addition if the destroyed asteroid is bigger than nSize == 6 then it spawns two smaller ones in its place.
 
 	if (spaceObjects[it]->getSize() > 6)
 	{
@@ -217,11 +226,14 @@ void Game::destAst(int it)
 
 void Game::nextRound()
 {
+	// This method is responsible for spawning two new big asteroids to the sides of the player's current
+	// position on the map.
 	if (spaceObjects.size() == 1)
 	{
 		float sPosx = spaceObjects[0]->getPos().x;
 		float sPosy = spaceObjects[0]->getPos().y;
 
+		// d is the value determining how far from the player should the asteroids be spawned
 		const int d = 6;
 
 		sf::Vector2f spVec = spaceObjects[0]->getVec();
@@ -232,7 +244,7 @@ void Game::nextRound()
 		
 		addAsteroid(sf::Vector2f(spVelVec.x/(rand() % 20 + 20), spVelVec.y/ (rand() % 20 + 20)), 10, sPosx + spVec.x*d, sPosy + spVec.y*d);
 
-		spVelVec = spaceObjects[0]->getVec();;
+		spVelVec = spaceObjects[0]->getVec();
 		transform(spVelVec, -25 - rand() % 130);
 
 		addAsteroid(sf::Vector2f(spVelVec.x/ (rand() % 20 + 20), spVelVec.y/ (rand() % 20 + 20)), 10, sPosx - spVec.x*d, sPosy - spVec.y*d);
