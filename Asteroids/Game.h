@@ -10,7 +10,18 @@ class Game final
 
 	void clearBullets();
 	void addShip();
-	void addAsteroid(sf::Vector2f velocity, unsigned int size);
+	void addAsteroid(sf::Vector2f velocity, unsigned int size, float x =0, float y=0);
+	void spawnNewAst();
+	void nextRound();
+	bool isShipCollided();
+	void bulletCol();
+	void restartGame();
+	void destAst(int it);
+
+
+	void wrapCoords();
+
+	void transform(sf::Vector2f& vector, float angle);
 
 	Game();
 public:
@@ -56,17 +67,15 @@ public:
 
 		bulletCol();
 
-		clearBullets(); };
+		clearBullets(); 
+		nextRound();
+	};
 	void shotReset() { shootCooldown = false; };
 
-	bool isShipCollided();
-	void bulletCol();
 
 
-	void destAst(int it);
-	void restartGame();
 
-	void wrapCoords();
+
 
 	void addBullets(sf::Vector2f origin, sf::Vector2f velocity);
 	void shoot(sf::Event event);

@@ -22,7 +22,7 @@ public:
 	virtual void thrust() = 0;
 
 	virtual sf::Vector2f getPos() { return pos; };
-	virtual sf::Vector2f getVec() { return pos; };
+	virtual sf::Vector2f getVec() { return velocity; };
 	virtual int getSize() { return nSize; };
 
 

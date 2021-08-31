@@ -30,11 +30,11 @@ Asteroid::Asteroid(float posx, float posy,sf::Vector2f velocity , int size)
 
 	boundaries[0] = sf::Vector2f(pos.x, pos.y);
 
-	rSpeed = 3/(rand() % 4 + 1);
+	rSpeed = 4/(rand() % 4 + 1);
 
 	for (int i = 1; i < 11; i++) //Ploting the circle for the boundaries
 	{ 
-		boundaries[i] =  pos + sf::Vector2f((radius + (rand() % 40)- 40) * sin(36.f * i * M_PI / 180), (radius + (rand() % 40)- 40) * cos(36.f * i * M_PI / 180));
+		boundaries[i] =  pos + sf::Vector2f((radius + (rand() % nSize*4)- nSize * 4) * sin(36.f * i * M_PI / 180), (radius + (rand() % nSize * 4)- nSize * 4) * cos(36.f * i * M_PI / 180));
 		std::cout << radius * sin(36.f * i * M_PI / 180) << " -II- " << radius * cos(36.f * i * M_PI / 180) << std::endl;
 	}
 
@@ -64,18 +64,13 @@ void Asteroid::move()
 		{
 			boundaries[i].position = pos + arms[i - 1];
 		}
-
 		boundaries[11] = boundaries[1];
-
-		
-		//std::cout << "Moved asteroid.\n";
 	}
 }
 
 
 void Asteroid::rotate(bool left) 
 {
-	//unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
 
 	float angle = rSpeed;
 
